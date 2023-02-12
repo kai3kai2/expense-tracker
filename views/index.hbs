@@ -7,11 +7,19 @@
       <ul>
         {{#each records}}
           <li>
-            {{this.name}}
+            {{this.name}}、{{this.Date}}、{{this.amount}}
+            <a href="./records/{{this._id}}/edit">修改</a>
+            <form
+              action="./records/{{this._id}}/delete"
+              method="POST"
+              style="inline"
+            >
+              <button type="submit">刪除</button>
+            </form>
           </li>
         {{/each}}
       </ul>
-      <a href="#">新增支出</a>
+      <a href="./records/new">新增支出</a>
     </div>
   </div>
 </div>
