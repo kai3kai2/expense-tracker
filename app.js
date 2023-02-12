@@ -3,6 +3,7 @@ const exphbs = require("express-handlebars");
 const mongoose = require("mongoose");
 const Record = require("./models/record");
 const bodyParser = require("body-parser");
+const methodOverride = require("method-override");
 
 if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
@@ -17,6 +18,7 @@ mongoose.connect(process.env.MONGODB_URI);
 app.engine("hbs", exphbs({ extname: ".hbs", defaultLayout: "main" }));
 app.set("view engine", "hbs");
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(methodOverride("_method"));
 
 const db = mongoose.connection;
 
@@ -31,6 +33,7 @@ db.once("open", () => {
 app.get("/", (req, res) => {
   Record.find()
     .lean()
+    .sort({ _id: "asc" })
     .then((records) => res.render("index", { records }))
     .catch((err) => console.log(err));
 });
@@ -52,7 +55,7 @@ app.get("/records/:id/edit", (req, res) => {
     .then((record) => res.render("edit", { record }));
 });
 
-app.post("/records/:id/edit", (req, res) => {
+app.put("/records/:id", (req, res) => {
   const id = req.params.id;
   const { name, amount, Date } = req.body;
 
@@ -67,7 +70,7 @@ app.post("/records/:id/edit", (req, res) => {
     .catch((err) => console.log(err));
 });
 
-app.post("/records/:id/delete", (req, res) => {
+app.delete("/records/:id", (req, res) => {
   const id = req.params.id;
   return Record.findById(id)
     .then((record) => record.remove())

@@ -1,5 +1,5 @@
 <div class="row">
-  <form action="/records/{{record._id}}/edit" method="POST">
+  <form action="/records/{{record._id}}?_method=PUT" method="POST">
     <input type="text" placeholder="name" name="name" value="{{record.name}}" />
     <input
       type="number"
