@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const Record = require("./models/record");
 const bodyParser = require("body-parser");
 const methodOverride = require("method-override");
+const routes = require("./routes");
 
 if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
@@ -19,6 +20,7 @@ app.engine("hbs", exphbs({ extname: ".hbs", defaultLayout: "main" }));
 app.set("view engine", "hbs");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
+app.use(routes);
 
 const db = mongoose.connection;
 
@@ -30,13 +32,6 @@ db.once("open", () => {
   console.log("mongodb connected!");
 });
 
-app.get("/", (req, res) => {
-  Record.find()
-    .lean()
-    .sort({ _id: "asc" })
-    .then((records) => res.render("index", { records }))
-    .catch((err) => console.log(err));
-});
 app.get("/records/new", (req, res) => {
   return res.render("new");
 });
