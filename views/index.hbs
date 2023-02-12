@@ -5,8 +5,11 @@
       <h2 class="mt-5 align-items-center">類別</h2>
       <div class="mt-2 mb-3">總金額 : </div>
       <ul>
-        <li>午餐 : 60</li>
-        <li>晚餐 : 120</li>
+        {{#each records}}
+          <li>
+            {{this.name}}
+          </li>
+        {{/each}}
       </ul>
       <a href="#">新增支出</a>
     </div>

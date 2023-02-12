@@ -1,6 +1,7 @@
 const express = require("express");
 const exphbs = require("express-handlebars");
 const mongoose = require("mongoose");
+const Record = require("./models/record");
 
 if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
@@ -10,7 +11,7 @@ const app = express();
 const PORT = 3000;
 
 mongoose.set("strictQuery", true);
-mongoose.connect(process.env.MOGODB_URL);
+mongoose.connect(process.env.MONGODB_URI);
 
 app.engine("hbs", exphbs({ extname: ".hbs", defaultLayout: "main" }));
 app.set("view engine", "hbs");
@@ -26,7 +27,10 @@ db.once("open", () => {
 });
 
 app.get("/", (req, res) => {
-  res.render("index");
+  Record.find()
+    .lean()
+    .then((records) => res.render("index", { records }))
+    .catch((err) => console.log(err));
 });
 
 app.listen(PORT, () =>
