@@ -4,22 +4,55 @@
 
       <h2 class="mt-5 align-items-center">類別</h2>
       <div class="mt-2 mb-3">總金額 : </div>
-      <ul>
+
+      <ul class="list-group">
         {{#each records}}
-          <li>
-            {{this.name}}、{{this.Date}}、{{this.amount}}
-            <a href="./records/{{this._id}}/edit">修改</a>
-            <form
-              action="./records/{{this._id}}?_method=DELETE"
-              method="POST"
-              style="inline"
-            >
-              <button type="submit">刪除</button>
-            </form>
+          <li class="list-group-item">
+            <div class="row">
+
+              <div class="col-auto me-auto">
+                <div class="d-flex flex-column">
+                  <div class="fs-4">
+                    {{this.name}}
+                  </div>
+                  <div style="padding-left:4px;font-size: 0.5rem;">
+                    {{this.Date}}
+                  </div>
+                </div>
+              </div>
+              <div class="col-auto mr-1">
+                金額 :
+                {{this.amount}}
+              </div>
+
+              <div class="col-auto p-0">
+
+                <a
+                  href="./records/{{this._id}}/edit"
+                  class="btn btn-secondary"
+                >修改
+                </a>
+
+                <form
+                  action="./records/{{this._id}}?_method=DELETE"
+                  method="POST"
+                  style="display: inline;"
+                >
+                  <button
+                    type="submit"
+                    class="btn btn-danger"
+                    id="margin: 0; padding: 0; border: 1px solid transparent"
+                  >刪除</button>
+                </form>
+              </div>
+            </div>
           </li>
         {{/each}}
       </ul>
-      <a href="./records/new">新增支出</a>
+
+      <div class="d-flex justify-content-center">
+        <a href="./records/new" class="btn btn-primary mt-3">新增支出</a>
+      </div>
     </div>
   </div>
 </div>

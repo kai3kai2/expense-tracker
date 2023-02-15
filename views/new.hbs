@@ -1,13 +1,70 @@
-<form action="/records" method="POST">
-  <input type="text" placeholder="name" name="name" />
-  <input
-    type="number"
-    placeholder="amount"
-    name="amount"
-    value="1"
-    max="1000"
-    min="0"
-  />
-  <input type="date" name="Date" id="Date" />
-  <button type="submit">新增支出</button>
-</form>
+<div class="container mt-4 py-4 p-5">
+  <div class="row">
+    <div class="col-12 col-lg-10 col-xl-8 mx-auto">
+      <form action="/records" method="POST">
+        <div class="row mb-4 g-2 align-items-center">
+          <label for="name" class="mb-1 col-md-2 col-form-label">名稱* :</label>
+          <div class="col-md-8">
+            <input
+              type="text"
+              placeholder="name"
+              name="name"
+              value="{{record.name}}"
+              class="form-control"
+            />
+          </div>
+        </div>
+
+        <div class="row mb-4 g-2 align-items-center">
+          <label for="Date" class="mb-1 col-md-2 col-form-label">日期* :</label>
+          <div class="col-md-8">
+            <input
+              type="date"
+              name="Date"
+              id="Date"
+              value="{{record.Date}}"
+              class="form-control"
+            />
+          </div>
+        </div>
+
+        <div class="row mb-4 g-2 align-items-center">
+          <label for="category" class="mb-1 col-md-2 col-form-label">類別 :
+          </label>
+          <div class="col-md-8">
+            <select
+              type="text"
+              id="category"
+              name="category"
+              class="form-control"
+            >
+              <option>交通</option>
+              <option>飲食</option>
+              <option>醫療</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row mb-4 g-2 align-items-center">
+          <label for="amount" class="mb-1 col-md-2 col-form-label">金額* :</label>
+          <div class="col-md-8">
+            <input
+              type="number"
+              placeholder="請輸入大於0以上的金額"
+              name="amount"
+              min="0"
+              class="form-control"
+            />
+          </div>
+        </div>
+
+        <div class="row mb-4 g-2 align-items-center">
+          <button
+            type="submit"
+            class="btn btn-primary col-md-10"
+          >新增支出</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
