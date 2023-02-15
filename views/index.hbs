@@ -3,34 +3,39 @@
     <div class="row">
 
       <h2 class="mt-5 align-items-center">類別</h2>
-      <div class="mt-2 mb-3">總金額 : </div>
+      <div class="my-4">總金額 : </div>
 
       <ul class="list-group">
         {{#each records}}
           <li class="list-group-item">
             <div class="row">
 
+              <div class="col-1 align-self-center" style="font-size:1.5rem;">
+                <i
+                  class="fa-solid fa-van-shuttle"
+                  style="color:rgb(236, 171, 51)"
+                ></i>
+              </div>
               <div class="col-auto me-auto">
                 <div class="d-flex flex-column">
                   <div class="fs-4">
                     {{this.name}}
                   </div>
-                  <div style="padding-left:4px;font-size: 0.5rem;">
+                  <div style="padding-left: 3px; font-size: 0.5rem;">
                     {{this.Date}}
                   </div>
                 </div>
               </div>
-              <div class="col-auto mr-1">
-                金額 :
+              <div class="col-auto align-self-center">
+                $ :
                 {{this.amount}}
               </div>
 
-              <div class="col-auto p-0">
-
+              <div class="col-auto align-self-center">
                 <a
                   href="./records/{{this._id}}/edit"
                   class="btn btn-secondary"
-                >修改
+                ><i class="fa-solid fa-pen-to-square"></i>修改
                 </a>
 
                 <form
@@ -42,7 +47,7 @@
                     type="submit"
                     class="btn btn-danger"
                     id="margin: 0; padding: 0; border: 1px solid transparent"
-                  >刪除</button>
+                  ><i class="fa-solid fa-trash"></i>刪除</button>
                 </form>
               </div>
             </div>
