@@ -20,7 +20,7 @@ module.exports = (app) => {
               message: "Email or Password incorrect.",
             });
           }
-          return done(null, false);
+          return done(null, user);
         })
         .catch((err) => done(err, false));
     })
