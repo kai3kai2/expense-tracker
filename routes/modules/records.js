@@ -1,15 +1,16 @@
 const express = require("express");
 const router = express.Router();
 const Record = require("../../models/record");
+const Category = require("../../models/category");
 
 router.get("/new", (req, res) => {
   return res.render("new");
 });
 
 router.post("/", (req, res) => {
-  const { name, amount, Date } = req.body;
+  const { name, amount, Date, category } = req.body;
   const userId = req.user._id;
-  return Record.create({ name, amount, Date, userId })
+  return Record.create({ name, amount, Date, category, userId })
     .then(() => res.redirect("/"))
     .catch((err) => console.log(err));
 });

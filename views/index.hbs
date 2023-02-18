@@ -2,8 +2,33 @@
   <div class="d-flex justify-content-center">
     <div class="row">
 
-      <h2 class="mt-5 align-items-center">類別</h2>
-      <div class="my-4">總金額 : </div>
+      <div class="row mb-4 g-2 align-items-center">
+        <form action="/">
+        <div class="row">
+
+          <div class="col-md-10">
+            <select
+              type="text"
+              id="filter"
+              name="filter"
+              class="form-control"
+            >
+              <option value="0" {{#if filter}} selected {{/if}}>全部</option>
+              <option value="1" {{#if filter}} selected {{/if}}>家具務業</option>
+              <option value="2" {{#if filter}} selected {{/if}}>交通出行</option>
+              <option value="3" {{#if filter}} selected {{/if}}>休閒娛樂</option>
+              <option value="4" {{#if filter}} selected {{/if}}>餐飲食品</option>
+              <option value="5" {{#if filter}} selected {{/if}}>其他</option>
+            </select>
+          </div>
+          <div class="col-md-2 ">
+              <button type="submit" class="btn btn-secondary">篩選</button>
+            </div>
+        </div>
+        </form>
+      </div>
+
+      <h2 class="my-4">總金額 : {{totalAmount}}</h2>
 
       <ul class="list-group">
         {{#each records}}
@@ -11,10 +36,11 @@
             <div class="row">
 
               <div class="col-1 align-self-center" style="font-size:1.5rem;">
-                <i
-                  class="fa-solid fa-van-shuttle"
-                  style="color:rgb(236, 171, 51)"
-                ></i>
+                {{#ifEquals '1' this.category}}<i class="fa-solid fa-house"></i>{{/ifEquals}}
+                {{#ifEquals '2' this.category}}<i class="fa-solid fa-van-shuttle"></i>{{/ifEquals}}
+                {{#ifEquals '3' this.category}}<i class="fa-solid fa-face-grin-beam"></i>{{/ifEquals}}
+                {{#ifEquals '4' this.category}}<i class="fa-solid fa-utensils"></i>{{/ifEquals}}
+                {{#ifEquals '5' this.category}}<i class="fa-solid fa-pen"></i>{{/ifEquals}}
               </div>
               <div class="col-auto me-auto">
                 <div class="d-flex flex-column">

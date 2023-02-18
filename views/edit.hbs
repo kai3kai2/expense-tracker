@@ -11,6 +11,7 @@
               name="name"
               value="{{record.name}}"
               class="form-control"
+              required
             />
           </div>
         </div>
@@ -24,6 +25,7 @@
               id="Date"
               value="{{record.Date}}"
               class="form-control"
+              required
             />
           </div>
         </div>
@@ -40,10 +42,14 @@
               name="category"
               class="form-control"
               value="{{record.category}}"
+              required
             >
-              <option>交通</option>
-              <option>飲食</option>
-              <option>醫療</option>
+              <option disabled selected>請選擇類別</option>
+              <option value="1" {{#if filter}} selected {{/if}}>家具務業</option>
+              <option value="2" {{#if filter}} selected {{/if}}>交通出行</option>
+              <option value="3" {{#if filter}} selected {{/if}}>休閒娛樂</option>
+              <option value="4" {{#if filter}} selected {{/if}}>餐飲食品</option>
+              <option value="5" {{#if filter}} selected {{/if}}>其他</option>
             </select>
           </div>
         </div>
@@ -58,6 +64,7 @@
               value="{{record.amount}}"
               min="0"
               class="form-control"
+              required
             />
           </div>
         </div>
