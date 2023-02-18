@@ -8,6 +8,10 @@ const usePassport = require("./config/passport");
 const routes = require("./routes");
 require("./config/mongoose");
 
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config();
+}
+
 const app = express();
 const PORT = 3000;
 
@@ -15,7 +19,7 @@ app.engine("hbs", exphbs({ extname: ".hbs", defaultLayout: "main" }));
 app.set("view engine", "hbs");
 app.use(
   session({
-    secret: "ThisIsMySecret",
+    secret: process.env.SESSION,
     resave: false,
     saveUninitialized: true,
   })
