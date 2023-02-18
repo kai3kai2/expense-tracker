@@ -14,7 +14,7 @@ if (process.env.NODE_ENV !== "production") {
 }
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 app.engine("hbs", exphbs({ extname: ".hbs", defaultLayout: "main" }));
 app.set("view engine", "hbs");
