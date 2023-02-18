@@ -5,7 +5,7 @@ if (process.env.NODE_ENV !== "production") {
 }
 
 mongoose.set("strictQuery", true);
-mongoose.connect(process.env.MONGODB_URI);
+// mongoose.connect(process.env.MONGODB_URI);
 
 const db = mongoose.connection;
 
