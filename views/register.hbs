@@ -8,6 +8,7 @@
         <i class="fa-solid fa-user-plus"></i>
         Register
       </h1>
+      {{> message}}
 
       <form action="/users/register" method="POST" class="mx-3">
         <div class="my-3">
@@ -36,8 +37,7 @@
             id="email"
             class="form-control"
             placeholder="Enter Email"
-            value="{{eamil}}"
-            required
+            value="{{email}}"
           />
         </div>
 
@@ -52,7 +52,6 @@
             id="password"
             class="form-control"
             placeholder="Enter Password"
-            required
           />
         </div>
 
@@ -67,7 +66,6 @@
             id="confirmPassword"
             class="form-control"
             placeholder="Enter Again Password"
-            required
           />
         </div>
 
