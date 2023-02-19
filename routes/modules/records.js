@@ -45,19 +45,7 @@ router.put("/:id", (req, res) => {
   const { name, amount, category, Date } = req.body;
   const filter = req.query.filter;
   const errors = [];
-  // if (!name || !amount || !category || !Date) {
-  //   errors.push({ message: "所有欄位都需要填!" });
-  // }
-  // if (errors.length) {
-  //   console.log(errors, name, Date, amount);
-  //   return res.render("edit", {
-  //     errors,
-  //     name,
-  //     amount,
-  //     category: filter,
-  //     Date,
-  //   });
-  // }
+
   return Record.findOne({ _id, userId })
     .then((record) => {
       record.name = name;
