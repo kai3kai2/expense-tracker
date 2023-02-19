@@ -1,16 +1,18 @@
 <div class="container mt-4 py-4 p-5">
   <div class="row">
     <div class="col-12 col-lg-10 col-xl-8 mx-auto">
+      {{> message}}
       <form action="/records/{{record._id}}?_method=PUT" method="POST">
         <div class="row mb-4 g-2 align-items-center">
           <label for="name" class="mb-1 col-md-2 col-form-label">名稱* :</label>
           <div class="col-md-8">
             <input
               type="text"
+              id="name"
               placeholder="name"
               name="name"
-              value="{{record.name}}"
               class="form-control"
+              value="{{record.name}}"
               required
             />
           </div>
@@ -23,8 +25,8 @@
               type="date"
               name="Date"
               id="Date"
-              value="{{record.Date}}"
               class="form-control"
+              value="{{record.Date}}"
               required
             />
           </div>
@@ -58,12 +60,13 @@
           <label for="amount" class="mb-1 col-md-2 col-form-label">金額* :</label>
           <div class="col-md-8">
             <input
+              id="amount"
               type="number"
               placeholder="amount"
               name="amount"
-              value="{{record.amount}}"
               min="0"
               class="form-control"
+              value="{{record.amount}}"
               required
             />
           </div>

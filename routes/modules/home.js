@@ -20,6 +20,7 @@ router.get("/", (req, res) => {
   if (filter > 0) {
     Record.find({ category: filter, userId })
       .lean()
+      .sort({ _id: "asc" })
       .then((records) => {
         totalAmount = total(records);
         return res.render("index", { records, totalAmount, category: filter });

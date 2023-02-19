@@ -3,10 +3,6 @@ const Record = require("../record");
 const User = require("../user");
 const Category = require("../category");
 
-if (process.env.NODE_ENV !== "production") {
-  require("dotenv").config();
-}
-
 const categoryList = [
   {
     id: 1,

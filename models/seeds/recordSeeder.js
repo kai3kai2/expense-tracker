@@ -3,10 +3,6 @@ const db = require("../../config/mongoose");
 const Record = require("../record");
 const User = require("../user");
 
-if (process.env.NODE_ENV !== "production") {
-  require("dotenv").config();
-}
-
 const SEED_USER = {
   name: "user1",
   email: "user1@example.com",

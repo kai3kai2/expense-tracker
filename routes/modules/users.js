@@ -10,6 +10,14 @@ router.get("/login", (req, res) => {
 
 router.post(
   "/login",
+  (req, res, next) => {
+    const { email, password } = req.body;
+    if (!email || !password) {
+      req.flash("warning_msg", "請再次確認您的信箱與密碼是否都有填寫");
+      return res.redirect("/users/login");
+    }
+    next();
+  },
   passport.authenticate("local", {
     successRedirect: "/",
     failureRedirect: "/users/login",
@@ -46,7 +54,6 @@ router.post("/register", (req, res) => {
     .then((user) => {
       if (user) {
         errors.push({ message: "信箱已經註冊過了!" });
-        console.log(email);
         return res.render("register", {
           errors,
           name,
@@ -73,7 +80,7 @@ router.post("/register", (req, res) => {
 
 router.get("/logout", (req, res) => {
   req.logout();
-  req.flash("success_msg", "你已經成功登出。");
+  req.flash("success_msg", "你已經成功登出。歡迎下次再使用!");
   res.redirect("/users/login");
 });
 
