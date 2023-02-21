@@ -1,6 +1,8 @@
 const bcrypt = require("bcryptjs");
 const db = require("../../config/mongoose");
 const Record = require("../record");
+const Category = require("../category");
+const records = require("./record.json");
 const User = require("../user");
 
 const SEED_USER = {
@@ -8,21 +10,6 @@ const SEED_USER = {
   email: "user1@example.com",
   password: "12345678",
 };
-
-const SEED_RECORD = [
-  {
-    name: "宵夜",
-    date: "2023/1/28",
-    amount: 80,
-    categoryId: "4",
-  },
-  {
-    name: "精油",
-    date: "2023/1/28",
-    amount: 280,
-    categoryId: "1",
-  },
-];
 
 db.once("open", () => {
   console.log("mongodb connected!");
@@ -39,19 +26,24 @@ db.once("open", () => {
     .then((user) => {
       const userId = user._id;
       return Promise.all(
-        Array.from({ length: 2 }, (_, i) =>
-          Record.create({
-            name: SEED_RECORD[i].name,
-            amount: SEED_RECORD[i].amount,
-            Date: SEED_RECORD[i].date,
-            category: SEED_RECORD[i].categoryId,
-            userId,
-          })
-        )
+        Array.from(records, (seedRecord) => {
+          return Category.findOne({ name: seedRecord.category })
+            .lean()
+            .then((category) => {
+              return Record.create({
+                name: seedRecord.name,
+                Date: seedRecord.Date,
+                amount: seedRecord.amount,
+                categoryId: category._id,
+                userId,
+              });
+            });
+        })
       );
     })
     .then(() => {
       console.log("recordSeeder done!");
       process.exit();
-    });
+    })
+    .catch((error) => console.error(error));
 });

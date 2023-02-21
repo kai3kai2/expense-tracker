@@ -12,6 +12,7 @@
               name="name"
               value="{{record.name}}"
               class="form-control"
+              required
             />
           </div>
         </div>
@@ -25,26 +26,28 @@
               id="Date"
               value="{{record.Date}}"
               class="form-control"
+              required
             />
           </div>
         </div>
 
         <div class="row mb-4 g-2 align-items-center">
-          <label for="category" class="mb-1 col-md-2 col-form-label">類別 :
+         <label
+            for="categoryId"
+            class="mb-1 col-md-2 col-form-label"
+          >類別*
           </label>
           <div class="col-md-8">
             <select
               type="text"
               id="category"
-              name="category"
+              name="categoryId"
               class="form-control"
-            >
-              <option selected>請選擇類別</option>
-              <option value="1"  {{#if filter}} selected {{/if}}>家具務業</option>
-              <option value="2" {{#if filter}} selected {{/if}}>交通出行</option>
-              <option value="3" {{#if filter}} selected {{/if}}>休閒娛樂</option>
-              <option value="4" {{#if filter}} selected {{/if}}>餐飲食品</option>
-              <option value="5" {{#if filter}} selected {{/if}}>其他</option>
+              required>
+              <option value="" disabled selected>請選擇類別</option>
+              {{#each categories}}
+              <option value="{{this._id}}" {{#if this.preset}}selected="selected" {{/if}}>{{this.name}}</option>
+              {{/each}}
             </select>
           </div>
         </div>
@@ -59,6 +62,7 @@
               name="amount"
               min="0"
               class="form-control"
+              required
             />
           </div>
         </div>

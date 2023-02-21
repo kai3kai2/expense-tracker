@@ -4,27 +4,27 @@
       {{> message}}
 
       <div class="row mb-4 g-2 align-items-center">
-        <form action="/">
+        <form action="/search">
         <div class="row">
 
           <div class="col-md-10">
             <select
               type="text"
-              id="filter"
-              name="filter"
-              class="form-control"
+              name="categoryId"
+              id="categoryId"
+              class="form-select"
             >
-              <option value="0" {{#if filter}} selected {{/if}}>全部</option>
-              <option value="1" {{#if filter}} selected {{/if}}>家具務業</option>
-              <option value="2" {{#if filter}} selected {{/if}}>交通出行</option>
-              <option value="3" {{#if filter}} selected {{/if}}>休閒娛樂</option>
-              <option value="4" {{#if filter}} selected {{/if}}>餐飲食品</option>
-              <option value="5" {{#if filter}} selected {{/if}}>其他</option>
+              <option value="">顯示: 全部類別</option>
+              {{#each categories}}
+              <option value="{{this._id}}" 
+              {{#if this.preset}}selected="selected" {{/if}}>顯示: {{this.name}} 類別</option>
+              {{/each}}
             </select>
           </div>
-          <div class="col-md-2 ">
+            <div class="col-md-2 ">
               <button type="submit" class="btn btn-secondary">篩選</button>
             </div>
+          
         </div>
         </form>
       </div>
@@ -37,11 +37,7 @@
             <div class="row">
 
               <div class="col-1 align-self-center" style="font-size:1.5rem;">
-                {{#ifEquals '1' this.category}}<i class="fa-solid fa-house"></i>{{/ifEquals}}
-                {{#ifEquals '2' this.category}}<i class="fa-solid fa-van-shuttle"></i>{{/ifEquals}}
-                {{#ifEquals '3' this.category}}<i class="fa-solid fa-face-grin-beam"></i>{{/ifEquals}}
-                {{#ifEquals '4' this.category}}<i class="fa-solid fa-utensils"></i>{{/ifEquals}}
-                {{#ifEquals '5' this.category}}<i class="fa-solid fa-pen"></i>{{/ifEquals}}
+                <i class="{{this.categoryId.icon}} fa-2x"></i>
               </div>
               <div class="col-auto me-auto">
                 <div class="d-flex flex-column">

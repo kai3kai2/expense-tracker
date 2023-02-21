@@ -2,30 +2,22 @@ const express = require("express");
 const router = express.Router();
 const Record = require("../../models/record");
 const Category = require("../../models/category");
-const passport = require("passport");
+const category = require("../../models/category");
+const moment = require("moment");
 
 router.get("/new", (req, res) => {
-  return res.render("new");
+  Category.find({})
+    .lean()
+    .then((categories) => {
+      return res.render("new", { categories });
+    });
 });
 
 router.post("/", (req, res) => {
-  const { name, amount, Date, category } = req.body;
+  const { name, amount, Date, categoryId } = req.body;
   const userId = req.user._id;
-  const errors = [];
-  if (!name || !amount || !category || !Date) {
-    errors.push({ message: "所有欄位都需要填!" });
-  }
-  if (errors.length) {
-    return res.render("edit", {
-      errors,
-      name,
-      amount,
-      category,
-      Date,
-    });
-  }
 
-  return Record.create({ name, amount, Date, category, userId })
+  return Record.create({ name, amount, Date, categoryId, userId })
     .then(() => res.redirect("/"))
     .catch((err) => console.log(err));
 });
@@ -33,24 +25,33 @@ router.post("/", (req, res) => {
 router.get("/:id/edit", (req, res) => {
   const userId = req.user._id;
   const _id = req.params.id;
-  return Record.findOne({ _id, userId })
+
+  Category.find({})
     .lean()
-    .then((record) => res.render("edit", { record }))
-    .catch((error) => console.log(error));
+    .then((categories) => {
+      return Record.findOne({ _id, userId })
+        .lean()
+        .then((record) => {
+          categories.forEach((category) => {
+            category.preset = String(category._id) === record.categoryId;
+          });
+          record.Date = moment(record.date).format("YYYY-MM-DD");
+          res.render("edit", { record, categories });
+        });
+    });
 });
 
 router.put("/:id", (req, res) => {
   const _id = req.params.id;
   const userId = req.user._id;
-  const { name, amount, category, Date } = req.body;
-  const filter = req.query.filter;
+  const { name, amount, categoryId, Date } = req.body;
   const errors = [];
 
   return Record.findOne({ _id, userId })
     .then((record) => {
       record.name = name;
       record.Date = Date;
-      record.category = category;
+      record.categoryId = categoryId;
       record.amount = amount;
       return record.save();
     })
@@ -65,6 +66,7 @@ router.delete("/:id", (req, res) => {
 
   return Record.findOne({ _id, userId })
     .then((record) => record.remove())
+    .then(() => req.flash("success_msg", "資料刪除成功!"))
     .then(() => res.redirect("/"))
     .catch((err) => console.log(err));
 });

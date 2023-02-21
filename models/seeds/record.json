@@ -1,0 +1,26 @@
+[
+  {
+    "name": "宵夜",
+    "Date": "2023-01-28",
+    "amount": 80,
+    "category": "餐飲食品"
+  },
+  {
+    "name": "精油",
+    "Date": "2023-01-28",
+    "amount": 280,
+    "category": "家居物業"
+  },
+  {
+    "name": "早餐",
+    "Date": "2023-01-29",
+    "amount": 100,
+    "category": "餐飲食品"
+  },
+  {
+    "name": "Netflix一月會員",
+    "Date": "2023-01-29",
+    "amount": 399,
+    "category": "休閒娛樂"
+  }
+]

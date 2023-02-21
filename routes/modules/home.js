@@ -1,9 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const category = require("../../models/category");
-
+const Category = require("../../models/category");
 const Record = require("../../models/record");
+const moment = require("moment");
 
+// 先做好總和函式
 function total(records) {
   let total = 0;
   records.map((record) => {
@@ -13,34 +14,70 @@ function total(records) {
 }
 
 router.get("/", (req, res) => {
-  let totalAmount = 0;
   const userId = req.user._id;
-  const filter = Number(req.query.filter);
+  let totalAmount = 0;
 
-  if (filter > 0) {
-    Record.find({ category: filter, userId })
-      .lean()
-      .sort({ _id: "asc" })
-      .then((records) => {
-        totalAmount = total(records);
-        return res.render("index", { records, totalAmount, category: filter });
-      });
-  } else if (filter == 0) {
-    Record.find({ userId })
-      .lean()
-      .then((records) => {
-        totalAmount = total(records);
-        return res.render("index", { records, totalAmount });
-      });
-  } else {
-    Record.find({ userId })
-      .lean()
-      .then((records) => {
-        totalAmount = total(records);
-        return res.render("index", { records, totalAmount });
-      })
-      .catch((error) => console.log(error));
+  Category.find({})
+    .lean()
+    .then((categories) => {
+      Record.find({ userId })
+        .populate("categoryId")
+        .lean()
+        .sort({ date: -1 })
+        .then((records) => {
+          records.forEach((record) => {
+            totalAmount = total(records);
+            record.Date = moment(record.Date).format("YYYY-MM-DD");
+          });
+
+          return res.render("index", {
+            records,
+            categories,
+            totalAmount,
+          });
+        });
+    })
+    .catch((err) => console.error(error));
+});
+
+router.get("/search", (req, res) => {
+  const userId = req.user._id;
+  const categoryId = req.query.categoryId;
+  let totalAmount = 0;
+
+  if (!categoryId) {
+    return res.redirect("/");
   }
+
+  Category.find({})
+    .lean()
+    .then((categories) => {
+      categories.forEach((category) => {
+        category.preset = String(category._id) === categoryId;
+        //   if (String(category._id) === categoryId) {
+        //     category.preset = true;
+        //   } else {
+        //     category.preset = false;
+        //   }
+      });
+      Record.find({ userId, categoryId })
+        .populate("categoryId")
+        .lean()
+        .sort({ date: -1 })
+        .then((records) => {
+          records.forEach((record) => {
+            totalAmount = total(records);
+            record.Date = moment(record.Date).format("YYYY-MM-DD");
+          });
+
+          return res.render("index", {
+            categories,
+            records,
+            totalAmount,
+          });
+        });
+    })
+    .catch((error) => console.error(error));
 });
 
 module.exports = router;
