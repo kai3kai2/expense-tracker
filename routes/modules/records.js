@@ -33,7 +33,7 @@ router.get("/:id/edit", (req, res) => {
         .lean()
         .then((record) => {
           categories.forEach((category) => {
-            category.preset = String(category._id) === record.categoryId;
+            category.preset = String(category._id) === String(record.categoryId);
           });
           record.Date = moment(record.date).format("YYYY-MM-DD");
           res.render("edit", { record, categories });
