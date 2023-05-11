@@ -23,11 +23,11 @@ router.get("/", (req, res) => {
       Record.find({ userId })
         .populate("categoryId")
         .lean()
-        .sort({ date: -1 })
+        .sort({ Date: -1, name: 1 })
         .then((records) => {
           records.forEach((record) => {
             totalAmount = total(records);
-            record.Date = moment(record.Date).format("YYYY-MM-DD");
+            record.Date = moment(record.Date).format("YYYY/MM/DD  ddd");
           });
 
           return res.render("index", {
@@ -67,7 +67,7 @@ router.get("/search", (req, res) => {
         .then((records) => {
           records.forEach((record) => {
             totalAmount = total(records);
-            record.Date = moment(record.Date).format("YYYY-MM-DD");
+            record.Date = moment(record.Date).format("YYYY/MM/DD  ddd");
           });
 
           return res.render("index", {

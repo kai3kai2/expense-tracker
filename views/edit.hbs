@@ -5,7 +5,7 @@
       <form action="/records/{{record._id}}?_method=PUT" method="POST">
         <div class="row mb-4 g-2 align-items-center">
           <label for="name" class="mb-1 col-md-2 col-form-label">名稱* :</label>
-          <div class="col-md-8">
+          <div class="col-md-9">
             <input
               type="text"
               id="name"
@@ -20,7 +20,7 @@
 
         <div class="row mb-4 g-2 align-items-center">
           <label for="Date" class="mb-1 col-md-2 col-form-label">日期* :</label>
-          <div class="col-md-8">
+          <div class="col-md-9">
             <input
               type="date"
               name="Date"
@@ -38,7 +38,7 @@
             class="mb-1 col-md-2 col-form-label"
           >類別*
           </label>
-          <div class="col-md-8">
+          <div class="col-md-9">
             <select
               type="text"
               id="categoryId"
@@ -47,9 +47,7 @@
               required>
               {{#each categories}}
               <option value="{{this._id}}" 
-              {{#if this.preset}}
-              selected="selected" 
-              {{/if}}>
+              {{#if this.preset}}selected="selected" {{/if}}>
               {{this.name}}
               </option>
               {{/each}}
@@ -59,7 +57,7 @@
 
         <div class="row mb-4 g-2 align-items-center">
           <label for="amount" class="mb-1 col-md-2 col-form-label">金額* :</label>
-          <div class="col-md-8">
+          <div class="col-md-9">
             <input
               id="amount"
               type="number"
@@ -73,11 +71,16 @@
           </div>
         </div>
 
-        <div class="row mb-4 g-2 align-items-center">
-          <button type="submit" class="btn btn-primary col-md-4">儲存</button>
-          <div class="col-md-2"></div>
-          <a href="/" class="btn btn-secondary col-md-4">返回</a>
+        <div class="row mb-4 g-2 align-items-center col-auto">
+          <div class="d-flex justify-content-center col-md">
+            <button type="submit" class="btn btn-primary col-md-6">儲存</button>
+          </div>
+
+          <div class="d-flex justify-content-center col-md">
+            <a href="/" class="btn btn-secondary col-md-6">返回</a>
+          </div>
         </div>
+
       </form>
     </div>
   </div>

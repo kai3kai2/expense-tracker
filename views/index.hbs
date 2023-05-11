@@ -29,14 +29,14 @@
         </form>
       </div>
 
-      <h2 class="my-4">總金額 : {{totalAmount}}</h2>
+      <h2 class="d-flex justify-content-center mb-3">總金額 : {{totalAmount}}</h2>
 
       <ul class="list-group">
         {{#each records}}
           <li class="list-group-item">
             <div class="row">
 
-              <div class="col-1 align-self-center" style="font-size:1.5rem;">
+              <div class="col-auto align-self-center" style="font-size:1.5rem;">
                 <i class="{{this.categoryId.icon}} fa-2x"></i>
               </div>
               <div class="col-auto me-auto">
