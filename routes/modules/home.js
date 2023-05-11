@@ -54,11 +54,6 @@ router.get("/search", (req, res) => {
     .then((categories) => {
       categories.forEach((category) => {
         category.preset = String(category._id) === categoryId;
-        //   if (String(category._id) === categoryId) {
-        //     category.preset = true;
-        //   } else {
-        //     category.preset = false;
-        //   }
       });
       Record.find({ userId, categoryId })
         .populate("categoryId")
